@@ -31,22 +31,18 @@ namespace Auden.Models
             {
                 return _driver.FindElement(By.CssSelector("[data-testid='loan-calculator-slider']"));
             }
-
         }
 
         public void MoveSlider()
         {
-
             Slider.SendKeys(Keys.ArrowRight);
         }
-
         public IWebElement AcceptCookieBtn
         {
             get
             {
                 return _driver.FindElement(By.Id("consent_prompt_submit"));
             }
-            
         }
 
     }

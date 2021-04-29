@@ -13,7 +13,7 @@ Then The min loan amount is £200
 And The max loan amount is £500
 
 Scenario: Repayment date
-When I select a payment date of a weekend
-Then the first repayment date will default to friday
+When I select a payment date
+Then the first repayment date will default to friday if repayment date falls on weekend
 
 	

@@ -46,15 +46,40 @@ namespace Auden
         public void ThenTheMinLoanAmountIs(int minAmount)
         {
             var min = _audenLoanModels.Slider.GetAttribute("min");
-            Assert.AreEqual(minAmount, min);
+             Assert.AreEqual(minAmount, min);
+        }
+
+        [Then(@"The max loan amount is £(.*)")]
+        public void ThenTheMaxLoanAmountIs(int maxAmount)
+        {
+            var max = _audenLoanModels.Slider.GetAttribute("max");
+            Assert.AreEqual(maxAmount, max);
+
+        }
+
+        [Then(@"Slider amount is the same as loan amount")]
+        public void ThenSliderAmountIsTheSameAsLoanAmount()
+        {
+            //var slideramount = 
+        }
+
+        [When(@"I select a payment date")]
+        public void WhenISelectAPaymentDate()
+        {
+            DateTime testDate = DateTime.Today;
+            if (testDate.DayOfWeek == DayOfWeek.Saturday || testDate.DayOfWeek == DayOfWeek.Sunday)
+            {
+                testDate = DateTime.Today.AddDays(-2);
+            }
+        }
+
+        [Then(@"the first repayment date will default to friday if repayment date falls on weekend")]
+        public void ThenTheFirstRepaymentDateWillDefaultToFridayIfRepaymentDateFallsOnWeekend()
+        {
+            ScenarioContext.Current.Pending();
         }
 
 
-        //[Then(@"I can select repayment date of (.*)nd")]
-        //public void ThenICanSelectRepaymentDateOfNd(int p0)
-        //{
-        //    //ScenarioContext.Current.Pending();
-        //}
 
     }
 }
