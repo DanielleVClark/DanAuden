@@ -20,11 +20,6 @@ namespace Auden.Models
             _driver = SpecFlowHooks._driver;
         }
 
-        //public void NavigateToURL(string URL)
-        //{
-        //    _driver.Navigate().GoToUrl(URL);
-        //}
-
         public IWebElement Slider
         {
             get

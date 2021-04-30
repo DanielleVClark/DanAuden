@@ -23,11 +23,5 @@ namespace Auden.Framework
             wait.Until(ExpectedConditions.ElementToBeClickable(element));
         }
 
-        public static void ScrollIntoView(this IWebElement element, IWebDriver driver, bool alignToTop = true)
-
-        {
-            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
-            executor.ExecuteScript("arguments[0].scrollIntoView(" + alignToTop.ToString().ToLower() + ");", element);
-        }
     }
 }
