@@ -32,7 +32,7 @@ namespace Auden
 
         }
 
-        [When(@"I select loan amount")]
+        [When(@"I select loan amount of £210")]
         public void WhenISelectLoanAmount()
         {
             var wait = WebDriverExtensions.WebDriverWait(_driver);
@@ -45,39 +45,45 @@ namespace Auden
         [Then(@"The min loan amount is £(.*)")]
         public void ThenTheMinLoanAmountIs(int minAmount)
         {
+            WebDriverExtensions.WaitUntilElementIsClickable(_driver, _audenLoanModels.AcceptCookieBtn);
+            _audenLoanModels.AcceptCookieBtn.Click();
+            WebDriverExtensions.WaitUntilElementIsClickable(_driver, _audenLoanModels.Min);
             var min = _audenLoanModels.Slider.GetAttribute("min");
-             Assert.AreEqual(minAmount, min);
+            Assert.AreEqual($"{minAmount}", min);
         }
 
         [Then(@"The max loan amount is £(.*)")]
         public void ThenTheMaxLoanAmountIs(int maxAmount)
         {
             var max = _audenLoanModels.Slider.GetAttribute("max");
-            Assert.AreEqual(maxAmount, max);
-
+            Assert.AreEqual($"{maxAmount}", max);
         }
 
-        [Then(@"Slider amount is the same as loan amount")]
-        public void ThenSliderAmountIsTheSameAsLoanAmount()
+        [Then(@"Slider amount is the same as loan amount displayed")]
+        public void ThenSliderAmountIsTheSameAsLoanAmountDisplayed()
         {
-            //var slideramount = 
+            var slideramount = _audenLoanModels.SliderAmount.Text;
+            var loanAmount = _audenLoanModels.LoanSummaryAmount.Text;
+            Assert.AreEqual(slideramount + ".", loanAmount);
         }
 
-        [When(@"I select a payment date")]
+        [When(@"I select a payment date 23rd")]
         public void WhenISelectAPaymentDate()
         {
-            DateTime testDate = DateTime.Today;
-            if (testDate.DayOfWeek == DayOfWeek.Saturday || testDate.DayOfWeek == DayOfWeek.Sunday)
-            {
-                testDate = DateTime.Today.AddDays(-2);
-            }
+            WebDriverExtensions.WaitUntilElementIsClickable(_driver, _audenLoanModels.AcceptCookieBtn);
+            _audenLoanModels.AcceptCookieBtn.Click();
+            WebDriverExtensions.WaitUntilElementIsClickable(_driver, _audenLoanModels.PaymentDate);
+            _audenLoanModels.PaymentDate.Click();
         }
 
-        [Then(@"the first repayment date will default to friday if repayment date falls on weekend")]
-        public void ThenTheFirstRepaymentDateWillDefaultToFridayIfRepaymentDateFallsOnWeekend()
+        [Then(@"the first repayment date will be Friday 21st May 2021")]
+        public void ThenTheFirstRepaymentDateWillBeFridayMay()
         {
-            ScenarioContext.Current.Pending();
+            var repaymentDate = _audenLoanModels.RepaymentDate.Text;
+            Assert.AreEqual("Friday 21 May 2021", repaymentDate);
         }
+
+
 
 
 
